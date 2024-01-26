@@ -1,8 +1,14 @@
 /* requires */
 const express = require("express");
 const mongoose = require("mongoose");
+const createRoute = require("./src/routes/createRoute");
 
 const app = express();
+
+app.get("/", (req, res) => {
+  res.send({ message: "working fine" });
+});
+app.use("/create", createRoute);
 
 /* Connections */
 mongoose.connect("d").catch((error) => {
