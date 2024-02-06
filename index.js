@@ -1,7 +1,7 @@
 /* requires */
 const express = require("express");
 const mongoose = require("mongoose");
-const createRoute = require("./src/routes/createRoute");
+// const createRoute = require("./src/routes/createRoute");
 
 const app = express();
 
@@ -14,6 +14,6 @@ app.get("/", (req, res) => {
 // mongoose.connect("d").catch((error) => {
 //   console.log("MongoDB not connected");
 // });
-app.listen(process.env.PORT || 4000, (error) => {
+app.listen(process.env.PORT, (error) => {
   console.log("listening to port 4000");
 });
