@@ -24,10 +24,6 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    user_password: {
-      type: String,
-      required: true,
-    },
     published_photo_books: {
       type: Array,
       required: false,
