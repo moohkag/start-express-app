@@ -2,9 +2,13 @@ const passport = require("passport");
 const UserModel = require("../models/userModel");
 var GoogleStrategy = require("passport-google-oauth20").Strategy;
 
-// const callbackURLString = "http://localhost:4000/auth/google/callback";
-const callbackURLString =
-  "https://pixely-server-f1ba3abe57b4.herokuapp.com/auth/google/callback";
+let callbackURLString;
+if (process.env.DOTENV === undefined) {
+  callbackURLString = "http://localhost:4000/auth/google/callback";
+} else {
+  callbackURLString =
+    "https://pixely-server-f1ba3abe57b4.herokuapp.com/auth/google/callback";
+}
 
 passport.use(
   new GoogleStrategy(
