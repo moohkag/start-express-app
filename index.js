@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 const CLIENT_URL = "http://localhost:3000/";
 // const CLIENT_URL = "*";
 const corsOptions = {
-  origin: "*",
+  origin: "CLIENT_URL",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
 };
