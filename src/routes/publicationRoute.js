@@ -1,26 +1,8 @@
 const router = require("express").Router();
-const { Readable } = require("stream");
-const multer = require("multer");
-const upload = multer();
 
 const publicationModel = require("../models/publicationModel");
 
-// GET all publications
-// router.get("/", async (req, res) => {
-//   try {
-//     const publication = await publicationModel.find();
-
-//     if (!publication) {
-//       return res.status(404).json({ message: "Photo websites not found" });
-//     }
-
-//     res.json(publication);
-//   } catch (error) {
-//     console.error("Error retrieving publication data:", error);
-//     res.status(500).json({ message: "Internal server error" });
-//   }
-// });
-
+/********************************* GET ***********************************/
 // GET find photo website with publication_url
 router.get("/:publication_url", async (req, res) => {
   try {
@@ -58,8 +40,9 @@ router.get("/check/:publication_url", async (req, res) => {
   }
 });
 
+/******************************* POST *********************************/
 // POST photo website
-router.post("/", upload.single("baby_photo"), async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     // Extract data from the request body
     const {
@@ -79,36 +62,15 @@ router.post("/", upload.single("baby_photo"), async (req, res) => {
       baby_birth_time,
       baby_weight,
       baby_length,
+      baby_photo,
     } = req.body;
 
-    // upload image file
-    // Access the uploaded image file from the request
-    const baby_photo = req.file;
-
-    // Create a readable stream from the uploaded image file
-    const readableStream = Readable.from(baby_photo.data);
-    // Upload the image to GridFS
-    const uploadStream = gridFSBucket.openUploadStream({
-      filename: `${publication_url}_baby_photo.jpg`, // Use a unique filename
-      contentType: "image/jpeg", // Set the content type
-    });
-    readableStream.pipe(uploadStream);
-
-    await new Promise((resolve, reject) => {
-      uploadStream.on("finish", resolve);
-      uploadStream.on("error", reject);
-    });
-    // end of image file
-
-    // Count the number of publication instances in the database
+    // publication_id
     const publicationCount = await publicationModel.countDocuments();
-
-    // Calculate the next publication_id
     const nextPublicationId = 100000001 + publicationCount;
 
-    // Create a new Publication instance
     const newPublication = new publicationModel({
-      nextPublicationId,
+      publication_id: nextPublicationId,
       publication_url,
       user_email,
       user_first_name,
@@ -131,7 +93,7 @@ router.post("/", upload.single("baby_photo"), async (req, res) => {
     // Save the new publication to the database
     await newPublication.save();
 
-    // Send a success response
+    // Handle success
     res.status(201).json({ message: "Publication created successfully" });
   } catch (error) {
     // Handle errors

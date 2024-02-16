@@ -1,4 +1,3 @@
-/*********************************/
 /* requires */
 if (process.env.DOTENV === undefined) {
   require("dotenv").config();
@@ -9,6 +8,7 @@ const mongoose = require("mongoose");
 // const passport = require("passport");
 const cors = require("cors");
 // const GoogleStrategy = require("./src/auths/googleAuth");
+const bodyParser = require("body-parser");
 
 // const productRoute = require("./src/routes/productRoute");
 const publicationRoute = require("./src/routes/publicationRoute");
@@ -18,18 +18,16 @@ const publicationRoute = require("./src/routes/publicationRoute");
 /* app */
 const app = express();
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
+// CORS
 const CLIENT_URL = "http://localhost:3000/";
-// const CLIENT_URL = "*";
 const corsOptions = {
-  origin: "CLIENT_URL",
+  origin: CLIENT_URL,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
 };
 app.use(cors(corsOptions));
 
+// cookie store
 // app.use(
 //   session({
 //     secret: "Pixely session secret",
@@ -40,6 +38,11 @@ app.use(cors(corsOptions));
 // );
 // app.use(passport.initialize());
 // app.use(passport.session());
+
+// payload size limit
+app.use(bodyParser.json({ limit: "16mb" }));
+app.use(bodyParser.urlencoded({ extended: true, limit: "16mb" }));
+app.use(bodyParser.text({ limit: "200mb" }));
 
 /*********************************/
 /* routes */

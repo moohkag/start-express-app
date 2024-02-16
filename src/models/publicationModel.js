@@ -8,8 +8,7 @@ const PublicationSchema = new Schema(
   {
     /* metadata */
     publication_id: {
-      // 9 combinations of numbers
-      type: String,
+      type: Number,
       required: true,
     },
     publication_url: {
@@ -17,7 +16,6 @@ const PublicationSchema = new Schema(
       required: true,
     },
     product_id: {
-      //ba1, ba3, wc4, etc.
       type: String,
       required: true,
     },
@@ -35,49 +33,23 @@ const PublicationSchema = new Schema(
     },
 
     /* options */
-    message_option: {
-      type: String,
-      required: false,
-      default: null,
-    },
-    donation_option: {
-      type: String,
-      required: false,
-      default: null,
-    },
+    message_option: String,
+    donation_option: String,
 
     /* BA */
-    baby_first_name: {
-      type: String,
-      required: false,
-    },
-    baby_middle_name: {
-      type: String || null,
-      required: false,
-      default: null,
-    },
-    baby_last_name: {
-      type: String,
-      required: false,
-    },
-    baby_birth_date: {
-      type: String,
-      required: false,
-    },
-    baby_birth_time: {
-      type: String,
-      required: false,
-    },
-    baby_weight: {
-      type: String,
-      required: false,
-    },
-    baby_length: {
-      type: String,
-      required: false,
-    },
+    baby_first_name: String,
+    baby_middle_name: String,
+    baby_last_name: String,
+    baby_birth_date: String,
+    baby_birth_time: String,
+    baby_weight: String,
+    baby_length: String,
+    baby_photo: String,
+
     /* GN */
+
     /* TJ */
+
     /* WC */
   },
   {
