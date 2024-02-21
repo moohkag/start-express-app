@@ -6,19 +6,12 @@ const Schema = mongoose.Schema;
 
 const PublicationSchema = new Schema(
   {
-    /* metadata */
-    publication_id: {
-      type: Number,
-      required: true,
-    },
     publication_url: {
       type: String,
       required: true,
     },
-    product_id: {
-      type: String,
-      required: true,
-    },
+
+    /* user info */
     user_email: {
       type: String,
       required: true,
@@ -32,7 +25,11 @@ const PublicationSchema = new Schema(
       required: true,
     },
 
-    /* options */
+    /* template */
+    template_id: {
+      type: String,
+      required: true,
+    },
     message_option: String,
     donation_option: String,
 

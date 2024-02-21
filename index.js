@@ -1,33 +1,35 @@
 /* requires */
+let CORS_ORIGIN_URL;
 if (process.env.DOTENV === undefined) {
   require("dotenv").config();
+  CORS_ORIGIN_URL = "*";
+} else {
+  CORS_ORIGIN_URL = "https://pixely.ca/";
 }
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
+const bodyParser = require("body-parser");
 // const session = require("express-session");
 // const passport = require("passport");
-const cors = require("cors");
-// const GoogleStrategy = require("./src/auths/googleAuth");
-const bodyParser = require("body-parser");
 
-// const productRoute = require("./src/routes/productRoute");
 const publicationRoute = require("./src/routes/publicationRoute");
+// const productRoute = require("./src/routes/productRoute");
 // const loginRoute = require("./src/routes/loginRoute");
 
-/*********************************/
+/*********************************************************************/
 /* app */
 const app = express();
 
-// CORS
-const CLIENT_URL = "http://localhost:3000/";
+// CORS setting
 const corsOptions = {
-  origin: CLIENT_URL,
+  origin: CORS_ORIGIN_URL,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
 };
 app.use(cors(corsOptions));
 
-// cookie store
+// cookie session setting
 // app.use(
 //   session({
 //     secret: "Pixely session secret",
@@ -39,21 +41,20 @@ app.use(cors(corsOptions));
 // app.use(passport.initialize());
 // app.use(passport.session());
 
-// payload size limit
+// body-parser setting
 app.use(bodyParser.json({ limit: "16mb" }));
 app.use(bodyParser.urlencoded({ extended: true, limit: "16mb" }));
-app.use(bodyParser.text({ limit: "200mb" }));
 
-/*********************************/
+/*********************************************************************/
 /* routes */
 app.get("/", (req, res) => {
   res.send({ message: "welcome to Pixely API." });
 });
-// app.use("/api/product/", productRoute);
 app.use("/api/publication", publicationRoute);
+// app.use("/api/product/", productRoute);
 // app.use("/auth", loginRoute);
 
-/*********************************/
+/*********************************************************************/
 /* Connections */
 if (process.env.DOTENV === undefined) {
   mongoose

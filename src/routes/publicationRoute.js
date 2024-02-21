@@ -1,5 +1,4 @@
 const router = require("express").Router();
-
 const publicationModel = require("../models/publicationModel");
 
 /********************************* GET ***********************************/
@@ -44,14 +43,14 @@ router.get("/check/:publication_url", async (req, res) => {
 // POST photo website
 router.post("/", async (req, res) => {
   try {
-    // Extract data from the request body
     const {
       publication_url,
+
       user_email,
       user_first_name,
       user_last_name,
-      product_id,
 
+      template_id,
       message_option,
       donation_option,
 
@@ -65,18 +64,14 @@ router.post("/", async (req, res) => {
       baby_photo,
     } = req.body;
 
-    // publication_id
-    const publicationCount = await publicationModel.countDocuments();
-    const nextPublicationId = 100000001 + publicationCount;
-
     const newPublication = new publicationModel({
-      publication_id: nextPublicationId,
       publication_url,
+
       user_email,
       user_first_name,
       user_last_name,
-      product_id,
 
+      template_id,
       message_option,
       donation_option,
 
