@@ -1,8 +1,9 @@
+const { ObjectId } = require("mongodb");
 const router = require("express").Router();
 const publicationModel = require("../models/publicationModel");
 
 /********************************* GET ***********************************/
-// GET find photo website with publication_url
+// GET online photo card
 router.get("/:publication_url", async (req, res) => {
   try {
     const publication = await publicationModel.findOne({
@@ -20,7 +21,7 @@ router.get("/:publication_url", async (req, res) => {
   }
 });
 
-// GET check publication_url
+// GET check publication_url availability
 router.get("/check/:publication_url", async (req, res) => {
   try {
     const publication = await publicationModel.findOne(
@@ -39,8 +40,33 @@ router.get("/check/:publication_url", async (req, res) => {
   }
 });
 
+// GET confirmation info
+router.get("/confirmation/:publication_id", async (req, res) => {
+  try {
+    const confirmation = await publicationModel.findOne(
+      { _id: req.params.publication_id },
+      {
+        publication_url: 1,
+        user_first_name: 1,
+        user_last_name: 1,
+        user_email: 1,
+        _id: 0,
+      }
+    );
+
+    if (!confirmation) {
+      return res.status(404).json({ message: "Publication not found" });
+    } else {
+      return res.status(200).json(confirmation);
+    }
+  } catch (error) {
+    console.error("Error retrieving publication data:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 /******************************* POST *********************************/
-// POST photo website
+// POST online photo card
 router.post("/", async (req, res) => {
   try {
     const {
@@ -86,10 +112,12 @@ router.post("/", async (req, res) => {
     });
 
     // Save the new publication to the database
-    await newPublication.save();
+    const createdPublication = await newPublication.save();
 
     // Handle success
-    res.status(201).json({ message: "Publication created successfully" });
+    res.status(201).json({
+      publication_id: createdPublication.id,
+    });
   } catch (error) {
     // Handle errors
     console.error("----------------------------------------------------");
