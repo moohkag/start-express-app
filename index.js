@@ -65,9 +65,14 @@ if (process.env.DOTENV === undefined) {
       console.log("MongoDB failed to connect.");
     });
 } else {
-  mongoose.connect(process.env.MONGODB_URI).catch((error) => {
-    console.log("MongoDB failed to connect.", error);
-  });
+  mongoose
+    .connect(process.env.MONGODB_URI)
+    .then(() => {
+      console.log("Connected to real database.");
+    })
+    .catch((error) => {
+      console.log("MongoDB failed to connect.", error);
+    });
 }
 app.listen(process.env.PORT || 4000, (error) => {
   console.log("listening to port 4000.");
