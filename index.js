@@ -2,6 +2,7 @@
 if (process.env.DOTENV === undefined) {
   require("dotenv").config();
 }
+// ["https://pixely.ca", "http://localhost:3000"]
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -19,7 +20,7 @@ const app = express();
 
 // CORS setting
 const corsOptions = {
-  origin: ["https://pixely.ca", "http://localhost:3000"],
+  origin: "*",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
 };
@@ -63,9 +64,9 @@ if (process.env.DOTENV === undefined) {
     });
 } else {
   mongoose.connect(process.env.MONGODB_URI).catch((error) => {
-    console.log("MongoDB failed to connect.");
+    console.log("MongoDB failed to connect.", error);
   });
 }
 app.listen(process.env.PORT || 4000, (error) => {
-  console.log("listening to port 4000.");
+  console.log("listening to port 4000.", process.env.MONGODB_URI);
 });
