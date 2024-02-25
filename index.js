@@ -45,7 +45,10 @@ app.use(bodyParser.urlencoded({ extended: true, limit: "16mb" }));
 /*********************************************************************/
 /* routes */
 app.get("/", (req, res) => {
-  res.send({ message: "welcome to Pixely API." });
+  res.send({
+    message: "welcome to Pixely API.",
+    connection: process.env.MONGODB_URI,
+  });
 });
 app.use("/api/publication", publicationRoute);
 // app.use("/api/product/", productRoute);
@@ -68,5 +71,5 @@ if (process.env.DOTENV === undefined) {
   });
 }
 app.listen(process.env.PORT || 4000, (error) => {
-  console.log("listening to port 4000.", process.env.MONGODB_URI);
+  console.log("listening to port 4000.");
 });
