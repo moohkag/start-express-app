@@ -3,6 +3,13 @@ const router = require("express").Router();
 const publicationModel = require("../models/publicationModel");
 
 /********************************* GET ***********************************/
+// GET
+router.get("/", async (req, res) => {
+  res.send({
+    message: "welcome to Pixely API.",
+  });
+});
+
 // GET online photo card
 router.get("/:publication_url", async (req, res) => {
   try {
@@ -17,7 +24,7 @@ router.get("/:publication_url", async (req, res) => {
     res.json(publication);
   } catch (error) {
     console.error("Error retrieving publication data:", error);
-    res.status(500).json({ message: error });
+    res.status(500).json({ message: "Internal server error" });
   }
 });
 
@@ -36,7 +43,7 @@ router.get("/check/:publication_url", async (req, res) => {
     }
   } catch (error) {
     console.error("Error checking publication URL:", error);
-    res.status(500).json({ message: error });
+    res.status(500).json({ message: "Internal server error" });
   }
 });
 
@@ -61,7 +68,7 @@ router.get("/confirmation/:publication_id", async (req, res) => {
     }
   } catch (error) {
     console.error("Error retrieving confirmation data:", error);
-    res.status(500).json({ message: error });
+    res.status(500).json({ message: "Internal server error" });
   }
 });
 
@@ -122,7 +129,7 @@ router.post("/", async (req, res) => {
     // Handle errors
     console.error("----------------------------------------------------");
     console.error("Error creating publication:", error);
-    res.status(500).json({ message: error });
+    res.status(500).json({ message: "Internal server error" });
   }
 }); //end of POST handler
 
