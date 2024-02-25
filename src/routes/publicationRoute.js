@@ -35,8 +35,8 @@ router.get("/check/:publication_url", async (req, res) => {
       return res.status(200).json({ available: false });
     }
   } catch (error) {
-    console.error("Error retrieving publication data:", error);
-    res.status(500).json({ message: "Internal server error", error });
+    console.error("Error checking publication URL:", error);
+    res.status(500).json({ message: error });
   }
 });
 
@@ -60,8 +60,8 @@ router.get("/confirmation/:publication_id", async (req, res) => {
       return res.status(200).json(confirmation);
     }
   } catch (error) {
-    console.error("Error retrieving publication data:", error);
-    res.status(500).json({ message: "Internal server error", error });
+    console.error("Error retrieving confirmation data:", error);
+    res.status(500).json({ message: error });
   }
 });
 
@@ -122,7 +122,7 @@ router.post("/", async (req, res) => {
     // Handle errors
     console.error("----------------------------------------------------");
     console.error("Error creating publication:", error);
-    res.status(500).json({ message: "Internal server error", error });
+    res.status(500).json({ message: error });
   }
 }); //end of POST handler
 
