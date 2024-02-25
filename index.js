@@ -1,11 +1,4 @@
 /* requires */
-let CORS_ORIGIN_URL;
-if (process.env.DOTENV === undefined) {
-  require("dotenv").config();
-  CORS_ORIGIN_URL = "*";
-} else {
-  CORS_ORIGIN_URL = "https://pixely.ca/";
-}
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -23,7 +16,7 @@ const app = express();
 
 // CORS setting
 const corsOptions = {
-  origin: CORS_ORIGIN_URL,
+  origin: ["https://pixely.ca", "http://localhost:3000"],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
 };
