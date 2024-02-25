@@ -17,7 +17,7 @@ router.get("/:publication_url", async (req, res) => {
     res.json(publication);
   } catch (error) {
     console.error("Error retrieving publication data:", error);
-    res.status(500).json({ message: "Internal server error", error });
+    res.status(500).json({ message: error });
   }
 });
 
