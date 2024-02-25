@@ -17,7 +17,7 @@ router.get("/:publication_url", async (req, res) => {
     res.json(publication);
   } catch (error) {
     console.error("Error retrieving publication data:", error);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ message: "Internal server error", error });
   }
 });
 
@@ -36,7 +36,7 @@ router.get("/check/:publication_url", async (req, res) => {
     }
   } catch (error) {
     console.error("Error retrieving publication data:", error);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ message: "Internal server error", error });
   }
 });
 
@@ -61,7 +61,7 @@ router.get("/confirmation/:publication_id", async (req, res) => {
     }
   } catch (error) {
     console.error("Error retrieving publication data:", error);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ message: "Internal server error", error });
   }
 });
 
@@ -122,7 +122,7 @@ router.post("/", async (req, res) => {
     // Handle errors
     console.error("----------------------------------------------------");
     console.error("Error creating publication:", error);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ message: "Internal server error", error });
   }
 }); //end of POST handler
 
