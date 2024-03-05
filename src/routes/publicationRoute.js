@@ -78,44 +78,40 @@ router.post("/", async (req, res) => {
   try {
     const {
       publication_url,
-
-      user_email,
-      user_first_name,
-      user_last_name,
-
+      owner_email,
+      owner_first_name,
+      owner_last_name,
       template_id,
-      message_option,
       donation_option,
 
-      baby_first_name,
-      baby_middle_name,
-      baby_last_name,
-      baby_birth_date,
-      baby_birth_time,
-      baby_weight,
-      baby_length,
-      baby_photo,
+      //
+      first_name,
+      middle_name,
+      last_name,
+      date_of_birth,
+      date_of_passing,
+      epitaph,
+      obituary,
+      photo,
     } = req.body;
 
     const newPublication = new publicationModel({
       publication_url,
-
-      user_email,
-      user_first_name,
-      user_last_name,
-
+      owner_email,
+      owner_first_name,
+      owner_last_name,
       template_id,
-      message_option,
       donation_option,
 
-      baby_first_name,
-      baby_middle_name,
-      baby_last_name,
-      baby_birth_date,
-      baby_birth_time,
-      baby_weight,
-      baby_length,
-      baby_photo,
+      //
+      first_name,
+      middle_name,
+      last_name,
+      date_of_birth,
+      date_of_passing,
+      epitaph,
+      obituary,
+      photo,
     });
 
     // Save the new publication to the database

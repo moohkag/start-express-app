@@ -10,44 +10,36 @@ const PublicationSchema = new Schema(
       type: String,
       required: true,
     },
-
-    /* user info */
-    user_email: {
+    owner_email: {
       type: String,
       required: true,
     },
-    user_first_name: {
+    owner_first_name: {
       type: String,
       required: true,
     },
-    user_last_name: {
+    owner_last_name: {
       type: String,
       required: true,
     },
-
-    /* template */
     template_id: {
       type: String,
       required: true,
     },
-    message_option: String,
     donation_option: String,
 
-    /* BA */
-    baby_first_name: String,
-    baby_middle_name: String,
-    baby_last_name: String,
-    baby_birth_date: String,
-    baby_birth_time: String,
-    baby_weight: String,
-    baby_length: String,
-    baby_photo: String,
+    //
+    first_name: String,
+    middle_name: String,
+    last_name: String,
 
-    /* GN */
+    date_of_birth: String,
+    date_of_passing: String,
 
-    /* TJ */
+    epitaph: String,
+    obituary: String,
 
-    /* WC */
+    photo: String,
   },
   {
     timestamps: true,
