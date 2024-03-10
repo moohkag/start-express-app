@@ -54,9 +54,9 @@ router.get("/confirmation/:publication_id", async (req, res) => {
       { _id: req.params.publication_id },
       {
         publication_url: 1,
-        user_first_name: 1,
-        user_last_name: 1,
-        user_email: 1,
+        owner_first_name: 1,
+        owner_last_name: 1,
+        owner_email: 1,
         _id: 0,
       }
     );

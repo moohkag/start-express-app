@@ -16,10 +16,9 @@ passport.use(
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: callbackURLString,
-      // passReqToCallback: true,
     },
     function (accessToken, refreshToken, profile, cb) {
-      // UserModel.findOrCreate({ googleId: profile.id }, function (err, user) {
+      // UserModel.findOrCreate({ login_method: "login_provider":"google" }, function (err, user) {
       //   return cb(err, user);
       // });
       cb(null, profile);

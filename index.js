@@ -2,17 +2,15 @@
 if (process.env.DOTENV === undefined) {
   require("dotenv").config();
 }
-// ["https://pixely.ca", "http://localhost:3000"]
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-// const session = require("express-session");
-// const passport = require("passport");
+const session = require("express-session");
+const passport = require("passport");
 
 const publicationRoute = require("./src/routes/publicationRoute");
-// const productRoute = require("./src/routes/productRoute");
-// const loginRoute = require("./src/routes/loginRoute");
+const loginRoute = require("./src/routes/loginRoute");
 
 /*********************************************************************/
 /* app */
@@ -20,23 +18,29 @@ const app = express();
 
 // CORS setting
 const corsOptions = {
-  origin: ["https://pixely.ca", "http://localhost:3000"],
+  origin: [
+    "https://pixely.ca",
+    /https:\/\/.*\.pixely.ca$/,
+
+    "http://localhost:3000",
+    /http:\/\/.*\.localhost:3000$/,
+  ],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
 };
 app.use(cors(corsOptions));
 
 // cookie session setting
-// app.use(
-//   session({
-//     secret: "Pixely session secret",
-//     resave: false,
-//     saveUninitialized: true,
-//     cookie: { secure: false },
-//   })
-// );
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(
+  session({
+    secret: "Pixely session secret",
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false },
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
 // body-parser setting
 app.use(bodyParser.json({ limit: "16mb" }));
@@ -49,9 +53,10 @@ app.get("/", (req, res) => {
     message: "welcome to Pixely API.",
   });
 });
+// login system
+app.use("/auth", loginRoute);
+// APIs
 app.use("/api/publication", publicationRoute);
-// app.use("/api/product/", productRoute);
-// app.use("/auth", loginRoute);
 
 /*********************************************************************/
 /* Connections */

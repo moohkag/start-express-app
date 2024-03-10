@@ -10,6 +10,8 @@ const PublicationSchema = new Schema(
       type: String,
       required: true,
     },
+
+    //user
     owner_email: {
       type: String,
       required: true,
@@ -22,6 +24,8 @@ const PublicationSchema = new Schema(
       type: String,
       required: true,
     },
+    //end of user
+
     template_id: {
       type: String,
       required: true,
@@ -40,6 +44,9 @@ const PublicationSchema = new Schema(
     obituary: String,
 
     photo: String,
+
+    //
+    tribute_comments: Array,
   },
   {
     timestamps: true,

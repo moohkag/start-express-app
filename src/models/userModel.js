@@ -6,11 +6,12 @@ const Schema = mongoose.Schema;
 
 const userModel = new Schema(
   {
+    // user
     user_first_name: {
       type: String,
       required: true,
     },
-    user_first_last: {
+    user_last_name: {
       type: String,
       required: true,
     },
@@ -18,14 +19,15 @@ const userModel = new Schema(
       type: String,
       required: true,
     },
+
+    //method
     login_method: {
-      type: Array,
-      required: true,
-      default: "Manual",
-    },
-    memorials: {
-      type: Array,
-      required: true,
+      login_provider: {
+        type: String,
+        required: true,
+        default: "Manual",
+      },
+      login_id: String,
     },
   },
   {
