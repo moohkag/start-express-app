@@ -19,6 +19,10 @@ const userModel = new Schema(
       type: String,
       required: true,
     },
+    user_picture: {
+      type: String,
+      required: true,
+    },
 
     //method
     login_method: {

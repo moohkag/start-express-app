@@ -8,9 +8,11 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const passport = require("passport");
-
-const publicationRoute = require("./src/routes/publicationRoute");
+const cookieParser = require("cookie-parser");
+// routes
 const loginRoute = require("./src/routes/loginRoute");
+const profileRoute = require("./src/routes/profileRoute");
+const publicationRoute = require("./src/routes/publicationRoute");
 
 /*********************************************************************/
 /* app */
@@ -31,14 +33,20 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // cookie session setting
+app.use(cookieParser("test"));
 app.use(
   session({
-    secret: "Pixely session secret",
+    secret: "test",
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false },
+    cookie: {
+      secure: false,
+      maxAge: 24 * 60 * 60 * 1000 * 30, // 30-days
+    },
   })
 );
+
+// passport initialize
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -55,8 +63,10 @@ app.get("/", (req, res) => {
 });
 // login system
 app.use("/auth", loginRoute);
+app.use("/profile", profileRoute);
 // APIs
 app.use("/api/publication", publicationRoute);
+// app.use("/api/templates", publicationRoute);
 
 /*********************************************************************/
 /* Connections */
