@@ -11,7 +11,6 @@ const passport = require("passport");
 const cookieParser = require("cookie-parser");
 // routes
 const loginRoute = require("./src/routes/loginRoute");
-const profileRoute = require("./src/routes/profileRoute");
 const publicationRoute = require("./src/routes/publicationRoute");
 
 /*********************************************************************/
@@ -33,7 +32,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // cookie session setting
-app.use(cookieParser("test"));
+app.use(cookieParser());
 app.use(
   session({
     secret: "test",
@@ -63,10 +62,8 @@ app.get("/", (req, res) => {
 });
 // login system
 app.use("/auth", loginRoute);
-app.use("/profile", profileRoute);
 // APIs
 app.use("/api/publication", publicationRoute);
-// app.use("/api/templates", publicationRoute);
 
 /*********************************************************************/
 /* Connections */

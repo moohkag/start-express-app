@@ -1,6 +1,5 @@
 // require Mongoose
 const mongoose = require("mongoose");
-const TributeModel = require("./tributeModel");
 
 // assign Mongoose schema
 const Schema = mongoose.Schema;
@@ -26,7 +25,6 @@ const PublicationSchema = new Schema(
       type: String,
       required: true,
     },
-    //end of user
 
     template_id: {
       type: String,
@@ -48,7 +46,16 @@ const PublicationSchema = new Schema(
     photo: String,
 
     //
-    tributes: [TributeModel],
+    tributes: [
+      {
+        tribute_id: String,
+        published_date: String,
+        name: String,
+        relationship: String,
+        email: String,
+        comment: String,
+      },
+    ],
   },
   {
     timestamps: true,
