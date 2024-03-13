@@ -1,12 +1,11 @@
 // require Mongoose
 const mongoose = require("mongoose");
-const TributeModel = require("./tributeModel");
 
 // assign Mongoose schema
 const Schema = mongoose.Schema;
 
 // schema
-const PublicationSchema = new Schema(
+const TributeSchema = new Schema(
   {
     publication_url: {
       type: String,
@@ -48,7 +47,7 @@ const PublicationSchema = new Schema(
     photo: String,
 
     //
-    tributes: [TributeModel],
+    tributes: Array,
   },
   {
     timestamps: true,
@@ -57,5 +56,4 @@ const PublicationSchema = new Schema(
 );
 
 //export
-module.exports = mongoose.model("publications", PublicationSchema);
-// mongoose.model(<CollectionName>, <CollectionSchema>);
+module.exports = TributeSchema;

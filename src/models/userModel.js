@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 // assign Mongoose schema
 const Schema = mongoose.Schema;
 
+// schema
 const userModel = new Schema(
   {
     // user
@@ -40,5 +41,6 @@ const userModel = new Schema(
   }
 );
 
-// mongoose.model(<CollectionName>, <CollectionSchema>);
+//export
 module.exports = mongoose.model("users", userModel);
+// mongoose.model(<CollectionName>, <CollectionSchema>);

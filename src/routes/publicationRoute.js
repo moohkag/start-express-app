@@ -3,7 +3,7 @@ const router = require("express").Router();
 const publicationModel = require("../models/publicationModel");
 
 /********************************* GET ***********************************/
-// GET
+// GET api/publications
 router.get("/", async (req, res) => {
   res.send({
     message: "welcome to Pixely API.",
@@ -73,7 +73,7 @@ router.get("/confirmation/:publication_id", async (req, res) => {
 });
 
 /******************************* POST *********************************/
-// POST online photo card
+// POST online memorial
 router.post("/", async (req, res) => {
   try {
     const {
@@ -117,7 +117,7 @@ router.post("/", async (req, res) => {
     // Save the new publication to the database
     const createdPublication = await newPublication.save();
 
-    // Handle success
+    // Handle success for confirmation page
     res.status(201).json({
       publication_id: createdPublication.id,
     });
@@ -127,6 +127,56 @@ router.post("/", async (req, res) => {
     console.error("Error creating publication:", error);
     res.status(500).json({ message: "Internal server error" });
   }
-}); //end of POST handler
+});
+
+// POST new tribute
+router.post("/update-tribute/:publication_url", async (req, res) => {
+  try {
+    const { publication_url } = req.params;
+    const { tribute } = req.body;
+
+    // Find the publication by publication_url
+    const publication = await publicationModel.findOne({ publication_url });
+
+    if (!publication) {
+      return res.status(404).json({ message: "Publication not found" });
+    }
+
+    // Generate a unique ObjectId for the _id field
+    const objectId = mongoose.Types.ObjectId();
+
+    // Add the _id field and other fields to the tribute object
+    const tributeWithId = { ...tribute, _id: objectId };
+
+    // Push the new tribute object to the tributes array
+    publication.tributes.push(tributeWithId);
+
+    // Save the updated publication to the database
+    const updatedPublication = await publication.save();
+
+    res.status(200).json(updatedPublication);
+  } catch (error) {
+    // Handle errors
+    console.error("Error updating publication:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+/******************************* DELETE *********************************/
+// DELETE tribute comment
+router.delete("/delete-tribute", async (req, res) => {
+  try {
+    const {} = req.body;
+
+    const newPublication = new publicationModel({});
+
+    // Save the new publication to the database
+    const createdPublication = await newPublication.save();
+  } catch (error) {
+    // Handle errors
+    console.error("----------------------------------------------------");
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
 module.exports = router;
