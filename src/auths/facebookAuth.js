@@ -1,26 +1,27 @@
 let callbackURLString;
 if (process.env.DOTENV === undefined) {
-  callbackURLString = "http://localhost:4000/auth/google/callback";
+  callbackURLString = "http://localhost:4000/auth/facebook/callback";
 } else {
   callbackURLString =
-    "https://pixely-server-f1ba3abe57b4.herokuapp.com/auth/google/callback";
+    "https://pixely-server-f1ba3abe57b4.herokuapp.com/auth/facebook/callback";
 }
 
 const passport = require("passport");
 const UserModel = require("../models/userModel");
-var GoogleStrategy = require("passport-google-oauth20").Strategy;
+var FacebookStrategy = require("passport-facebook").Strategy;
 
 passport.use(
-  new GoogleStrategy(
+  new FacebookStrategy(
     {
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientID: process.env.FACEBOOK_APP_ID,
+      clientSecret: process.env.FACEBOOK_APP_SECRET,
       callbackURL: callbackURLString,
+      profileFields: ["id", "displayName", "photos", "email"],
     },
     function (accessToken, refreshToken, profile, done) {
       //check if it is existing user
       UserModel.findOne({
-        "login_method.login_provider": "google",
+        "login_method.login_provider": "facebook",
         "login_method.login_id": profile.id,
       }).then((currentUser) => {
         if (currentUser) {
@@ -30,8 +31,8 @@ passport.use(
           // new user
           new UserModel({
             user_display_name: profile.displayName,
-            user_email: profile.emails[0].value,
-            user_picture: profile._json.picture,
+            // user_email: profile.email?.value,
+            user_picture: profile.photos[0].value,
             login_method: {
               login_provider: profile.provider,
               login_id: profile.id,
@@ -46,10 +47,3 @@ passport.use(
     } //end of function
   )
 );
-
-passport.serializeUser((user, done) => {
-  done(null, user);
-});
-passport.deserializeUser((user, done) => {
-  done(null, user);
-});

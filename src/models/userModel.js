@@ -8,22 +8,12 @@ const Schema = mongoose.Schema;
 const userModel = new Schema(
   {
     // user
-    user_first_name: {
+    user_display_name: {
       type: String,
       required: true,
     },
-    user_last_name: {
-      type: String,
-      required: true,
-    },
-    user_email: {
-      type: String,
-      required: true,
-    },
-    user_picture: {
-      type: String,
-      required: true,
-    },
+    user_email: String,
+    user_picture: String,
 
     //method
     login_method: {

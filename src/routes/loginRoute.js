@@ -2,6 +2,8 @@
 const router = require("express").Router();
 const passport = require("passport");
 require("../auths/googleAuth");
+require("../auths/facebookAuth");
+
 let successRedirect;
 let failRedirect;
 if (process.env.DOTENV === undefined) {
@@ -27,6 +29,7 @@ router.post("/logout", (req, res) => {
   res.redirect("/login");
 });
 
+// Google Oauth
 router.get(
   "/google",
   passport.authenticate("google", { scope: ["profile", "email"] })
@@ -38,6 +41,20 @@ router.get(
     successRedirect: successRedirect,
     failureRedirect: failRedirect,
   })
+);
+
+// Facebook Oauth
+router.get("/facebook", passport.authenticate("facebook"));
+
+router.get(
+  "/facebook/callback",
+  passport.authenticate("facebook", {
+    failureRedirect: failRedirect,
+  }),
+  function (req, res) {
+    // Successful authentication, redirect home.
+    res.redirect(successRedirect);
+  }
 );
 
 // profile /////////////////////////////////////////////////////
