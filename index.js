@@ -32,15 +32,14 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // cookie session setting
-app.set("trust proxy", 1);
 app.use(cookieParser());
 app.use(
   session({
-    secret: process.env.SESSION_SECRETE,
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
-      secure: false,
+      secure: true,
       maxAge: 24 * 60 * 60 * 1000 * 30, // 30-days
     },
   })
