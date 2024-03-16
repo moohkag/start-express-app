@@ -25,6 +25,9 @@ const corsOptions = {
 
     "http://localhost:3000",
     /http:\/\/.*\.localhost:3000$/,
+
+    "https://pixely-server-f1ba3abe57b4.herokuapp.com/",
+    /http:\/\/.*\.herokuapp.com$/,
   ],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
@@ -35,7 +38,7 @@ app.use(cors(corsOptions));
 app.use(cookieParser());
 // app.use(
 //   session({
-//     secret: "pixely_session_secret",
+//     secret: process.env.SESSION_SECRET,
 //     resave: false,
 //     saveUninitialized: true,
 //     cookie: {
@@ -52,11 +55,12 @@ app.use(
     resave: false,
     saveUninitialized: true,
     httpOnly: false,
-    maxAge: 24 * 60 * 60 * 1000 * 30, // 30-days
     cookie: {
-      path: "/",
-      secure: true,
+      maxAge: 24 * 60 * 60 * 1000 * 30, // 30-days
       sameSite: "none",
+      secure: false,
+      domain: "pixely-server-f1ba3abe57b4.herokuapp.com",
+      httpOnly: true,
     },
   })
 );
