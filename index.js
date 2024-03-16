@@ -33,15 +33,30 @@ app.use(cors(corsOptions));
 
 // cookie session setting
 app.use(cookieParser());
+// app.use(
+//   session({
+//     secret: "pixely_session_secret",
+//     resave: false,
+//     saveUninitialized: true,
+//     cookie: {
+//       secure: false,
+//       maxAge: 24 * 60 * 60 * 1000 * 30, // 30-days
+//     },
+//   })
+// );
+
 app.use(
   session({
-    secret: "pixely_session_secret",
+    name: "pixely_session",
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
+    httpOnly: false,
+    maxAge: 24 * 60 * 60 * 1000 * 30, // 30-days
     cookie: {
-      // httpOnly: false,
-      // secure: true,
-      maxAge: 24 * 60 * 60 * 1000 * 30, // 30-days
+      path: "/",
+      secure: true,
+      sameSite: "none",
     },
   })
 );
