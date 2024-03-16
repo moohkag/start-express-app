@@ -35,7 +35,7 @@ app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(
   session({
-    secret: process.env.SESSION_SECRET,
+    secret: "pixely_session_secret",
     resave: false,
     saveUninitialized: true,
     cookie: {
