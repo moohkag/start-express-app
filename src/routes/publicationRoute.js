@@ -3,14 +3,14 @@ const router = require("express").Router();
 const publicationModel = require("../models/publicationModel");
 
 /********************************* GET ***********************************/
-// GET api/publications
+// GET
 router.get("/", async (req, res) => {
   res.send({
     message: "welcome to Pixely API.",
   });
 });
 
-// GET online photo card
+// GET online memorial
 router.get("/:publication_url", async (req, res) => {
   try {
     const publication = await publicationModel.findOne({
@@ -53,11 +53,9 @@ router.get("/confirmation/:publication_id", async (req, res) => {
     const confirmation = await publicationModel.findOne(
       { _id: req.params.publication_id },
       {
-        publication_url: 1,
-        owner_first_name: 1,
-        owner_last_name: 1,
-        owner_email: 1,
         _id: 0,
+        publication_url: 1,
+        user_display_name: 1,
       }
     );
 
@@ -72,15 +70,31 @@ router.get("/confirmation/:publication_id", async (req, res) => {
   }
 });
 
+// GET user
+router.get("/published-memorials/:user_id", async (req, res) => {
+  try {
+    const publications = await publicationModel.find({
+      user_id: req.params.user_id,
+    });
+    if (publications.length === 0) {
+      return res.json([]);
+    } else {
+      return res.status(200).json(publications);
+    }
+  } catch (error) {
+    console.error("Error retrieving publications:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 /******************************* POST *********************************/
 // POST online memorial
 router.post("/", async (req, res) => {
   try {
     const {
       publication_url,
-      owner_email,
-      owner_first_name,
-      owner_last_name,
+      user_id,
+      user_display_name,
       template_id,
       donation_option,
 
@@ -97,9 +111,8 @@ router.post("/", async (req, res) => {
 
     const newPublication = new publicationModel({
       publication_url,
-      owner_email,
-      owner_first_name,
-      owner_last_name,
+      user_id,
+      user_display_name,
       template_id,
       donation_option,
 

@@ -24,9 +24,12 @@ router.get("/login", (req, res) => {
   res.json("Manual login route. Coming soon.");
 });
 
-router.post("/logout", (req, res) => {
-  req.logOut();
-  res.redirect("/login");
+router.post("/logout", function (req, res, next) {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+  });
 });
 
 // Google Oauth
@@ -57,7 +60,7 @@ router.get(
   }
 );
 
-// profile /////////////////////////////////////////////////////
+/////////// profile //////////////////////////////////////////////////
 let redirectLocation;
 if (process.env.DOTENV === undefined) {
   require("dotenv").config();
@@ -68,12 +71,8 @@ if (process.env.DOTENV === undefined) {
 
 const checkAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
-    //dev
-    // console.log("True isAuthenticated");
     return next();
   }
-  //dev
-  // console.log("False isAuthenticated");
   res.send({ message: "login required" });
 };
 
@@ -89,13 +88,13 @@ router.get("/profile", checkAuthenticated, (req, res) => {
   }
 });
 
-router.get("/profile/test", (req, res) => {
-  const cookieValue = req.cookies;
-
-  if (cookieValue) {
-    res.send(`Value retrieved from cookie: ${cookieValue}`);
+router.get("/check/profile", checkAuthenticated, (req, res) => {
+  if (req.user) {
+    res.status(200).json({
+      isLoggedIn: true,
+    });
   } else {
-    res.send({ message: "Cookie not found" });
+    res.status(403).json({ isLoggedIn: false });
   }
 });
 

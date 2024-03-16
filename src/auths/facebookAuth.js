@@ -31,7 +31,7 @@ passport.use(
           // new user
           new UserModel({
             user_display_name: profile.displayName,
-            // user_email: profile.email?.value,
+            user_email: profile.email?.value,
             user_picture: profile.photos[0].value,
             login_method: {
               login_provider: profile.provider,
@@ -47,3 +47,16 @@ passport.use(
     } //end of function
   )
 );
+
+passport.serializeUser((user, done) => {
+  const serializedUser = {
+    _id: user._id,
+    user_display_name: user.user_display_name,
+    user_picture: user.user_picture,
+  };
+  done(null, serializedUser);
+});
+
+passport.deserializeUser((user, done) => {
+  done(null, user);
+});

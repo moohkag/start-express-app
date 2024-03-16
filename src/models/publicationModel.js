@@ -7,25 +7,19 @@ const Schema = mongoose.Schema;
 // schema
 const PublicationSchema = new Schema(
   {
+    //
     publication_url: {
       type: String,
       required: true,
     },
-
-    //user
-    owner_email: {
+    user_id: {
       type: String,
       required: true,
     },
-    owner_first_name: {
+    user_display_name: {
       type: String,
       required: true,
     },
-    owner_last_name: {
-      type: String,
-      required: true,
-    },
-
     template_id: {
       type: String,
       required: true,
