@@ -63,6 +63,7 @@ passport.serializeUser((user, done) => {
     };
     done(null, placeholderUser);
   }
+  // if there is error it will save placeholder data.
 });
 
 passport.deserializeUser((user, done) => {

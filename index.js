@@ -8,7 +8,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const passport = require("passport");
-const cookieParser = require("cookie-parser");
+// const cookieParser = require("cookie-parser"); //no need
 // routes
 const loginRoute = require("./src/routes/loginRoute");
 const publicationRoute = require("./src/routes/publicationRoute");
@@ -33,18 +33,17 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // cookie session setting
-app.use(cookieParser());
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-      secure: false,
-      maxAge: 24 * 60 * 60 * 1000 * 30, // 30-days
-    },
-  })
-);
+// app.use(
+//   session({
+//     secret: process.env.SESSION_SECRET,
+//     resave: false,
+//     saveUninitialized: true,
+//     cookie: {
+//       secure: false,
+//       maxAge: 24 * 60 * 60 * 1000 * 30, // 30-days
+//     },
+//   })
+// );
 
 // app.use(
 //   session({
@@ -62,6 +61,15 @@ app.use(
 //     },
 //   })
 // );
+
+// required for passport session
+app.use(
+  session({
+    secret: "secrettexthere",
+    saveUninitialized: true,
+    resave: true,
+  })
+);
 
 // passport initialize
 app.use(passport.initialize());
