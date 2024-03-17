@@ -70,11 +70,7 @@ if (process.env.DOTENV === undefined) {
 }
 
 const checkAuthenticated = (req, res, next) => {
-  // if (req.isAuthenticated()) {
-  //   return next();
-  // }
-
-  if (true) {
+  if (req.isAuthenticated()) {
     return next();
   }
 
