@@ -33,17 +33,17 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // cookie session setting
-// app.use(
-//   session({
-//     secret: process.env.SESSION_SECRET,
-//     resave: false,
-//     saveUninitialized: true,
-//     cookie: {
-//       secure: false,
-//       maxAge: 24 * 60 * 60 * 1000 * 30, // 30-days
-//     },
-//   })
-// );
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      secure: false,
+      maxAge: 24 * 60 * 60 * 1000 * 30, // 30-days
+    },
+  })
+);
 
 // app.use(
 //   session({
@@ -61,14 +61,6 @@ app.use(cors(corsOptions));
 //     },
 //   })
 // );
-
-app.use(
-  session({
-    secret: "secrettexthere",
-    saveUninitialized: true,
-    resave: true,
-  })
-);
 
 app.use((request, response, next) => {
   response.setHeader("Access-Control-Allow-Origin", "*");
