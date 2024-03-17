@@ -62,7 +62,6 @@ app.use(cors(corsOptions));
 //   })
 // );
 
-// required for passport session
 app.use(
   session({
     secret: "secrettexthere",
