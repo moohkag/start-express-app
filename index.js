@@ -25,9 +25,6 @@ const corsOptions = {
 
     "http://localhost:3000",
     /http:\/\/.*\.localhost:3000$/,
-
-    "https://pixely-server-f1ba3abe57b4.herokuapp.com/",
-    /http:\/\/.*\.herokuapp.com$/,
   ],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,

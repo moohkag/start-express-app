@@ -77,7 +77,7 @@ router.get("/published-memorials/:user_id", async (req, res) => {
       user_id: req.params.user_id,
     });
     if (publications.length === 0) {
-      return res.json([]);
+      return res.json(null);
     } else {
       return res.status(200).json(publications);
     }

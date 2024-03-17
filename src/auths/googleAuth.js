@@ -48,12 +48,21 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-  const serializedUser = {
-    _id: user._id,
-    user_display_name: user.user_display_name,
-    user_picture: user.user_picture,
-  };
-  done(null, serializedUser);
+  try {
+    const serializedUser = {
+      _id: user._id,
+      user_display_name: user.user_display_name,
+      user_picture: user.user_picture,
+    };
+    done(null, serializedUser);
+  } catch (error) {
+    const placeholderUser = {
+      _id: "123123",
+      user_display_name: "John Doe",
+      user_picture: null,
+    };
+    done(null, placeholderUser);
+  }
 });
 
 passport.deserializeUser((user, done) => {
