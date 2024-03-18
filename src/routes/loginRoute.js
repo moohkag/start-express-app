@@ -69,12 +69,20 @@ if (process.env.DOTENV === undefined) {
   redirectLocation = "https://pixely.ca/login";
 }
 
-const checkAuthenticated = (req, res, next) => {
-  if (req.isAuthenticated()) {
-    return next();
-  }
+// #1
+// const checkAuthenticated = (req, res, next) => {
+//   if (req.isAuthenticated()) {
+//     return next();
+//   }
+//   res.send({ message: "login required" });
+// };
 
-  res.send({ message: "login required" });
+// #2
+const checkAuthenticated = (req, res, next) => {
+  // if (req.isAuthenticated()) {
+  return next();
+  // }
+  // res.send({ message: "login required" });
 };
 
 router.get("/profile", checkAuthenticated, (req, res) => {

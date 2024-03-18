@@ -8,7 +8,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const passport = require("passport");
-const cookieParser = require("cookie-parser");
+// const cookieParser = require("cookie-parser");
 const loginRoute = require("./src/routes/loginRoute");
 const publicationRoute = require("./src/routes/publicationRoute");
 
@@ -31,7 +31,7 @@ const CORSOptions = {
 app.use(cors(CORSOptions));
 
 // cookie session setting
-app.use(cookieParser());
+// app.use(cookieParser());
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
