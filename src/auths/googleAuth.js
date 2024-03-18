@@ -2,8 +2,7 @@ let callbackURLString;
 if (process.env.DOTENV === undefined) {
   callbackURLString = "http://localhost:4000/auth/google/callback";
 } else {
-  callbackURLString =
-    "https://pixely-server-f1ba3abe57b4.herokuapp.com/auth/google/callback";
+  callbackURLString = "https://www.yourpixelymailbox.com/auth/google/callback";
 }
 
 const passport = require("passport");

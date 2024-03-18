@@ -26,39 +26,16 @@ const CORSOptions = {
     /http:\/\/.*\.localhost:3000$/,
   ],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  credentials: false,
+  credentials: true,
 };
 app.use(cors(CORSOptions));
-
-///////////////////////////////////
-// Passport.js serialization
-// passport.serializeUser((user, done) => {
-//   // Serialize user data into a JSON string and store it in a cookie
-//   const userData = JSON.stringify(user);
-//   // Set the serialized user data as a cookie
-//   res.cookie("userData", userData, { maxAge: 24 * 60 * 60 * 1000 * 30 }); // 30 days expiration
-//   done(null, user.id);
-// });
-
-// passport.deserializeUser((id, done) => {
-//   // Retrieve the serialized user data from the cookie
-//   const userData = req.cookies.userData;
-//   if (userData) {
-//     // Parse the JSON string to get the user object
-//     const user = JSON.parse(userData);
-//     done(null, user);
-//   } else {
-//     done(new Error("User data not found in cookie"), null);
-//   }
-// });
-///////////////////////////////////
 
 // cookie session setting
 app.use(cookieParser());
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
-    resave: false,
+    resave: true,
     saveUninitialized: true,
     cookie: {
       secure: false,
@@ -66,19 +43,6 @@ app.use(
     },
   })
 );
-
-app.use((request, response, next) => {
-  response.setHeader("Access-Control-Allow-Origin", "*");
-  response.setHeader(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
-  );
-  response.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, DELETE, PATCH, OPTIONS"
-  );
-  next();
-});
 
 // passport initialize
 app.use(passport.initialize());
