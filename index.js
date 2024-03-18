@@ -18,20 +18,20 @@ const app = express();
 
 // CORS setting
 const CORSOptions = {
-  origin: [
-    "https://pixely.ca",
-    /https:\/\/.*\.pixely.ca$/,
+  // origin: [
+  //   "https://pixely.ca",
+  //   /https:\/\/.*\.pixely.ca$/,
 
-    "http://localhost:3000",
-    /http:\/\/.*\.localhost:3000$/,
-  ],
+  //   "http://localhost:3000",
+  //   /http:\/\/.*\.localhost:3000$/,
+  // ],
+  origin: "*",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
 };
 app.use(cors(CORSOptions));
 
 // cookie session setting
-// app.use(cookieParser());
 app.use(
   session({
     secret: process.env.SESSION_SECRET,

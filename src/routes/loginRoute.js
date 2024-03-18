@@ -70,19 +70,11 @@ if (process.env.DOTENV === undefined) {
 }
 
 // #1
-// const checkAuthenticated = (req, res, next) => {
-//   if (req.isAuthenticated()) {
-//     return next();
-//   }
-//   res.send({ message: "login required" });
-// };
-
-// #2
 const checkAuthenticated = (req, res, next) => {
-  // if (req.isAuthenticated()) {
-  return next();
-  // }
-  // res.send({ message: "login required" });
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.send({ message: "login required" });
 };
 
 router.get("/profile", checkAuthenticated, (req, res) => {
