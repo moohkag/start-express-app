@@ -8,8 +8,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const passport = require("passport");
-// const cookieParser = require("cookie-parser"); //no need
-// routes
+// const cookieParser = require("cookie-parser");
 const loginRoute = require("./src/routes/loginRoute");
 const publicationRoute = require("./src/routes/publicationRoute");
 
@@ -18,7 +17,7 @@ const publicationRoute = require("./src/routes/publicationRoute");
 const app = express();
 
 // CORS setting
-const corsOptions = {
+const CORSOptions = {
   origin: [
     "https://pixely.ca",
     /https:\/\/.*\.pixely.ca$/,
@@ -28,9 +27,8 @@ const corsOptions = {
   ],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
-  exposedHeaders: ["Set-Cookie"],
 };
-app.use(cors(corsOptions));
+app.use(cors(CORSOptions));
 
 // cookie session setting
 app.use(
@@ -44,23 +42,6 @@ app.use(
     },
   })
 );
-
-// app.use(
-//   session({
-//     name: "pixely_session",
-//     secret: process.env.SESSION_SECRET,
-//     resave: false,
-//     saveUninitialized: true,
-//     httpOnly: false,
-//     cookie: {
-//       maxAge: 24 * 60 * 60 * 1000 * 30, // 30-days
-//       sameSite: "none",
-//       secure: false,
-//       domain: "pixely-server-f1ba3abe57b4.herokuapp.com",
-//       httpOnly: true,
-//     },
-//   })
-// );
 
 app.use((request, response, next) => {
   response.setHeader("Access-Control-Allow-Origin", "*");
