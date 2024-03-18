@@ -8,7 +8,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const passport = require("passport");
-// const cookieParser = require("cookie-parser");
+const cookieParser = require("cookie-parser");
 const loginRoute = require("./src/routes/loginRoute");
 const publicationRoute = require("./src/routes/publicationRoute");
 
@@ -26,11 +26,35 @@ const CORSOptions = {
     /http:\/\/.*\.localhost:3000$/,
   ],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  credentials: true,
+  credentials: false,
 };
 app.use(cors(CORSOptions));
 
+///////////////////////////////////
+// Passport.js serialization
+// passport.serializeUser((user, done) => {
+//   // Serialize user data into a JSON string and store it in a cookie
+//   const userData = JSON.stringify(user);
+//   // Set the serialized user data as a cookie
+//   res.cookie("userData", userData, { maxAge: 24 * 60 * 60 * 1000 * 30 }); // 30 days expiration
+//   done(null, user.id);
+// });
+
+// passport.deserializeUser((id, done) => {
+//   // Retrieve the serialized user data from the cookie
+//   const userData = req.cookies.userData;
+//   if (userData) {
+//     // Parse the JSON string to get the user object
+//     const user = JSON.parse(userData);
+//     done(null, user);
+//   } else {
+//     done(new Error("User data not found in cookie"), null);
+//   }
+// });
+///////////////////////////////////
+
 // cookie session setting
+app.use(cookieParser());
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
