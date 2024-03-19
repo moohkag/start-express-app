@@ -35,11 +35,11 @@ app.use(cors(CORSOptions));
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
-    resave: false, // Setting to false to avoid session being saved on each request
-    saveUninitialized: true, // Allow uninitialized sessions to be saved
+    resave: false,
+    saveUninitialized: true,
     cookie: {
-      secure: false, // Set secure to false to allow cookies over non-HTTPS connections
-      httpOnly: false, // Set httpOnly to false to allow client-side access to cookies
+      secure: false,
+      httpOnly: false,
       maxAge: 24 * 60 * 60 * 1000 * 30, // 30-days
     },
   })
