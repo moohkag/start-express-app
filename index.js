@@ -26,6 +26,7 @@ const CORSOptions = {
     /http:\/\/.*\.localhost:3000$/,
   ],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  allowedHeaders: "*",
   credentials: true,
 };
 app.use(cors(CORSOptions));
@@ -34,15 +35,15 @@ app.use(cors(CORSOptions));
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
-    resave: true,
-    saveUninitialized: true,
+    resave: false, // Setting to false to avoid session being saved on each request
+    saveUninitialized: true, // Allow uninitialized sessions to be saved
     cookie: {
-      secure: false,
+      secure: false, // Set secure to false to allow cookies over non-HTTPS connections
+      httpOnly: false, // Set httpOnly to false to allow client-side access to cookies
       maxAge: 24 * 60 * 60 * 1000 * 30, // 30-days
     },
   })
 );
-
 // passport initialize
 app.use(passport.initialize());
 app.use(passport.session());
