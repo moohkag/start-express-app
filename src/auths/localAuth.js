@@ -7,10 +7,10 @@ if (process.env.DOTENV === undefined) {
 
 const passport = require("passport");
 const UserModel = require("../models/userModel");
-var GoogleStrategy = require("passport-google-oauth20").Strategy;
+var LocalStrategy = require("passport-google-oauth20").Strategy;
 
 passport.use(
-  new GoogleStrategy(
+  new LocalStrategy(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,

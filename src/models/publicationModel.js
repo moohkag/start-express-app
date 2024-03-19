@@ -14,11 +14,11 @@ const PublicationSchema = new Schema(
     },
     user_id: {
       type: String,
-      required: true,
+      required: false,
     },
     user_display_name: {
       type: String,
-      required: true,
+      required: false,
     },
     template_id: {
       type: String,
