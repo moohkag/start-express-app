@@ -47,12 +47,13 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-  const serializedUser = {
-    _id: user._id,
-    user_display_name: user.user_display_name,
-    user_picture: user.user_picture,
-  };
-  done(null, serializedUser);
+  // const serializedUser = {
+  //   _id: user._id,
+  //   user_display_name: user.user_display_name,
+  //   user_picture: user.user_picture,
+  // };
+  // done(null, serializedUser);
+  done(null, user);
 });
 
 passport.deserializeUser((user, done) => {

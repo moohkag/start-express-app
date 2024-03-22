@@ -75,8 +75,9 @@ const checkAuthenticated = (req, res, next) => {
 
   if (req.isAuthenticated()) {
     return next();
+  } else {
+    res.send({ message: "login required" });
   }
-  res.send({ message: "login required" });
 };
 
 router.get("/profile", checkAuthenticated, (req, res) => {
@@ -84,9 +85,8 @@ router.get("/profile", checkAuthenticated, (req, res) => {
   if (req.user) {
     res.status(200).json({
       error: false,
-      message: "successfully logged inhhhhh",
+      message: "successfully logged in",
       user: req.user,
-      token: req.user.token || null,
     });
   } else {
     res.status(403).json({ error: true, message: "Not Authorized" });
