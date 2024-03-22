@@ -6,9 +6,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const session = require("express-session");
-const passport = require("passport");
+// const session = require("express-session");
+const session = require("cookie-session");
 // const cookieParser = require("cookie-parser");
+const passport = require("passport");
 const loginRoute = require("./src/routes/loginRoute");
 const publicationRoute = require("./src/routes/publicationRoute");
 
@@ -32,15 +33,12 @@ app.use(cors(CORSOptions));
 
 // cookie session setting
 app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-      secure: false,
-      httpOnly: false,
-      maxAge: 24 * 60 * 60 * 1000 * 30, // 30-days
-    },
+  cookieSession({
+    name: "session",
+    keys: [process.env.SESSION_SECRET],
+    maxAge: 24 * 60 * 60 * 1000 * 30, // 30 days
+    httpOnly: false,
+    secure: false,
   })
 );
 
