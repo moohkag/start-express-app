@@ -21,12 +21,11 @@ const CORSOptions = {
   origin: [
     "https://pixely.ca",
     /https:\/\/.*\.pixely.ca$/,
-
     "http://localhost:3000",
     /http:\/\/.*\.localhost:3000$/,
   ],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  allowedHeaders: "*",
+  allowedHeaders: ["Authorization", "*"],
   credentials: true,
 };
 app.use(cors(CORSOptions));
