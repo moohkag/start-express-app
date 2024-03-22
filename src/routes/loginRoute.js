@@ -60,7 +60,7 @@ router.get(
   }
 );
 
-/////////// profile //////////////////////////////////////////////////
+// profile data after login
 let redirectLocation;
 if (process.env.DOTENV === undefined) {
   require("dotenv").config();
@@ -69,8 +69,10 @@ if (process.env.DOTENV === undefined) {
   redirectLocation = "https://pixely.ca/login";
 }
 
-// #1
 const checkAuthenticated = (req, res, next) => {
+  //dev
+  console.log(req.isAuthenticated());
+
   if (req.isAuthenticated()) {
     return next();
   }
@@ -78,11 +80,13 @@ const checkAuthenticated = (req, res, next) => {
 };
 
 router.get("/profile", checkAuthenticated, (req, res) => {
+  //dev
   if (req.user) {
     res.status(200).json({
       error: false,
-      message: "successfully logged in",
+      message: "successfully logged inhhhhh",
       user: req.user,
+      token: req.user.token || null,
     });
   } else {
     res.status(403).json({ error: true, message: "Not Authorized" });
