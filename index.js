@@ -32,28 +32,28 @@ const CORSOptions = {
 app.use(cors(CORSOptions));
 
 // cookie session setting
-app.use(
-  cookieSession({
-    name: "session",
-    keys: ["session key"],
-    maxAge: 24 * 60 * 60 * 1000 * 30, // 30 days
-    httpOnly: false,
-    secure: false,
-  })
-);
-
 // app.use(
-//   session({
-//     secret: process.env.SESSION_SECRET,
-//     resave: false,
-//     saveUninitialized: true,
-//     cookie: {
-//       secure: false,
-//       httpOnly: false,
-//       maxAge: 24 * 60 * 60 * 1000 * 30, // 30-days
-//     },
+//   cookieSession({
+//     name: "session",
+//     keys: ["session key"],
+//     maxAge: 24 * 60 * 60 * 1000 * 30, // 30 days
+//     httpOnly: false,
+//     secure: false,
 //   })
 // );
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      secure: false,
+      httpOnly: false,
+      maxAge: 24 * 60 * 60 * 1000 * 30, // 30-days
+    },
+  })
+);
 
 // passport initialize
 app.use(passport.initialize());
