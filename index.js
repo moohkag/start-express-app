@@ -35,12 +35,25 @@ app.use(cors(CORSOptions));
 app.use(
   cookieSession({
     name: "session",
-    keys: [process.env.SESSION_SECRET],
+    keys: ["session key"],
     maxAge: 24 * 60 * 60 * 1000 * 30, // 30 days
     httpOnly: false,
     secure: false,
   })
 );
+
+// app.use(
+//   session({
+//     secret: process.env.SESSION_SECRET,
+//     resave: false,
+//     saveUninitialized: true,
+//     cookie: {
+//       secure: false,
+//       httpOnly: false,
+//       maxAge: 24 * 60 * 60 * 1000 * 30, // 30-days
+//     },
+//   })
+// );
 
 // passport initialize
 app.use(passport.initialize());
