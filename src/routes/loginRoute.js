@@ -81,9 +81,8 @@ const checkAuthenticated = (req, res, next) => {
 };
 
 router.get("/profile", checkAuthenticated, (req, res) => {
-  //dev
   if (req.user) {
-    res.status(200).json({
+    res.json({
       error: false,
       message: "successfully logged in",
       user: req.user,
