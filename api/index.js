@@ -26,7 +26,6 @@ const CORSOptions = {
     /http:\/\/.*\.localhost:3000$/,
   ],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  allowedHeaders: ["Authorization", "*"],
   credentials: true,
 };
 app.use(cors(CORSOptions));
