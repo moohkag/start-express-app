@@ -21,6 +21,7 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Credentials", "true");
   next();
 });
+app.enable("trust proxy");
 
 // CORS setting
 const CORSOptions = {
@@ -36,6 +37,10 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
+      //new
+      sameSite: "none",
+
+      //old
       secure: false,
       httpOnly: false,
       maxAge: 24 * 60 * 60 * 1000 * 30, // 30-days
