@@ -2,7 +2,7 @@ let callbackURLString;
 if (process.env.DOTENV === undefined) {
   callbackURLString = "http://localhost:4000/auth/google/callback";
 } else {
-  callbackURLString = "https://pixely-server.vercel.app//auth/google/callback";
+  callbackURLString = "https://pixely-server.vercel.app/auth/google/callback";
 }
 
 const passport = require("passport");
