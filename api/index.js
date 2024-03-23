@@ -21,7 +21,7 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Credentials", "true");
   next();
 });
-app.enable("trust proxy");
+// app.enable("trust proxy");
 
 // CORS setting
 const CORSOptions = {
