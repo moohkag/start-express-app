@@ -3,7 +3,7 @@ if (process.env.DOTENV === undefined) {
   callbackURLString = "http://localhost:4000/auth/facebook/callback";
 } else {
   callbackURLString =
-    "https://www.yourpixelymailbox.com/auth/facebook/callback";
+    "https://https://pixely-server.vercel.app//auth/facebook/callback";
 }
 
 const passport = require("passport");
