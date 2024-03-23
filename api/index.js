@@ -19,12 +19,7 @@ const app = express();
 
 // CORS setting
 const CORSOptions = {
-  origin: [
-    "https://pixely.ca",
-    /https:\/\/.*\.pixely.ca$/,
-    "http://localhost:3000",
-    /http:\/\/.*\.localhost:3000$/,
-  ],
+  origin: "*",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
 };
