@@ -17,9 +17,14 @@ const publicationRoute = require("../src/routes/publicationRoute");
 /* app */
 const app = express();
 
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  next();
+});
+
 // CORS setting
 const CORSOptions = {
-  origin: "*",
+  origin: ["*", "http://localhost:3000", "https://pixely.ca"],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
 };
