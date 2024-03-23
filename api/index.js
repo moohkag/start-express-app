@@ -38,10 +38,10 @@ app.use(
     saveUninitialized: true,
     cookie: {
       //new
-      // sameSite: "none",
+      sameSite: "none",
+      secure: true,
 
       //old
-      secure: false,
       httpOnly: false,
       maxAge: 24 * 60 * 60 * 1000 * 30, // 30-days
     },
