@@ -10,8 +10,8 @@ const session = require("express-session");
 const cookieSession = require("cookie-session");
 const cookieParser = require("cookie-parser");
 const passport = require("passport");
-const loginRoute = require("./src/routes/loginRoute");
-const publicationRoute = require("./src/routes/publicationRoute");
+const loginRoute = require("../src/routes/loginRoute");
+const publicationRoute = require("../src/routes/publicationRoute");
 
 /*********************************************************************/
 /* app */
