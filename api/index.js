@@ -1,7 +1,12 @@
 /* requires */
+let sameSiteValue = "none";
+let secureValue = true;
 if (process.env.DOTENV === undefined) {
   require("dotenv").config();
+  sameSiteValue = "strict";
+  secureValue = false;
 }
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -25,7 +30,15 @@ app.enable("trust proxy");
 
 // CORS setting
 const CORSOptions = {
-  origin: ["*", "http://localhost:3000", "https://pixely.ca"],
+  origin: [
+    "*",
+
+    "https://pixely.ca",
+    /https:\/\/.*\.pixely.ca$/,
+
+    "http://localhost:3000",
+    /http:\/\/.*\.localhost:3000$/,
+  ],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
 };
@@ -38,8 +51,8 @@ app.use(
     saveUninitialized: true,
     cookie: {
       //new
-      sameSite: "none",
-      secure: true,
+      sameSite: sameSiteValue,
+      secure: secureValue,
 
       //old
       httpOnly: false,

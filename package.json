@@ -1,11 +1,11 @@
 {
   "name": "pixely-server",
   "version": "1.0.0",
-  "description": "",
+  "description": "Server website for Pixely",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js",
+    "dev": "nodemon api/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
