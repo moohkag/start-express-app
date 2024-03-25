@@ -40,7 +40,7 @@ const CORSOptions = {
     /http:\/\/.*\.localhost:3000$/,
   ],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  credentials: true,
+  credentials: "include",
 };
 app.use(cors(CORSOptions));
 

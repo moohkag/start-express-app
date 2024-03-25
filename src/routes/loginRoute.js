@@ -25,7 +25,7 @@ router.get("/login", (req, res) => {
 });
 
 router.post("/logout", function (req, res, next) {
-  req.logout(function (err) {
+  req.logOut(function (err) {
     if (err) {
       return next(err);
     }
@@ -70,9 +70,6 @@ if (process.env.DOTENV === undefined) {
 }
 
 const checkAuthenticated = (req, res, next) => {
-  //dev
-  console.log(req.isAuthenticated());
-
   if (req.isAuthenticated()) {
     return next();
   } else {
