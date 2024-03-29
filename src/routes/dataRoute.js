@@ -12,45 +12,14 @@ router.get("/", async (req, res) => {
 /********************************* POST ***********************************/
 router.post("/", async (req, res) => {
   try {
-    const {
-      publication_url,
-      user_id,
-      user_display_name,
-      template_id,
-      donation_option,
-
-      first_name,
-      middle_name,
-      last_name,
-      date_of_birth,
-      date_of_passing,
-      epitaph,
-      obituary,
-      photo,
-    } = req.body;
+    const { dataOne } = req.body;
 
     const newPublication = new publicationModel({
-      publication_url,
-      user_id,
-      user_display_name,
-      template_id,
-      donation_option,
-
-      //
-      first_name,
-      middle_name,
-      last_name,
-      date_of_birth,
-      date_of_passing,
-      epitaph,
-      obituary,
-      photo,
+      dataProperty: dataOne,
     });
 
-    // Save the new publication to the database
     const createdPublication = await newPublication.save();
 
-    // Handle success for confirmation page
     res.status(201).json({
       publication_id: createdPublication.id,
     });
